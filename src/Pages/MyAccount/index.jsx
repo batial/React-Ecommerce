@@ -1,10 +1,11 @@
 /* import React from 'react' */
+import Layout from "../../Components/Layout";
 
 function MyAcount() {
   return (
-    <div>
+    <Layout>
       MyAccount
-    </div>
+    </Layout>
   )
 }
 
