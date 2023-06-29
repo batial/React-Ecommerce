@@ -11,7 +11,6 @@ function Home() {
         const response = await fetch(`${apiUrl}/products`);
         const data = await response.json();
         setItem(data);
-        console.log(data)
       } catch (error) {
         console.error(`Algo salió mal: ${error}`);
       }
