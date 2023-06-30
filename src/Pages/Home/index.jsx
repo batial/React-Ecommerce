@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import Layout from "../../Components/Layout";
 import Card from "../../Components/Cards";
 import { apiUrl } from "../../api";
+import ProductDetail from "../../Components/ProductDetail";
 
 function Home() {
   const [items, setItem] = useState(null);
   useEffect(() => {
-    const fetchData = async () =>{
+    const fetchData = async () => {
       try {
         const response = await fetch(`${apiUrl}/products`);
         const data = await response.json();
@@ -14,9 +15,9 @@ function Home() {
       } catch (error) {
         console.error(`Algo salió mal: ${error}`);
       }
-    }
-    
-  fetchData()
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -27,6 +28,7 @@ function Home() {
           <Card data={item} key={item.id} />
         ))}
       </div>
+      <ProductDetail />
     </Layout>
   );
 }
