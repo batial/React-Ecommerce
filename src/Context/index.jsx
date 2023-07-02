@@ -18,7 +18,7 @@ export const ShoppingCartProvider = ({ children }) => {
   };
 
   //checkout side menu - open / close
-  const [isCheckoutOpen, setisCheckoutOpen] = useState(true);
+  const [isCheckoutOpen, setisCheckoutOpen] = useState(false);
   const openCheckout = () => {
     setisCheckoutOpen(true);
   };

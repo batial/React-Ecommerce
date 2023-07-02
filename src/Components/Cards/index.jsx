@@ -1,4 +1,4 @@
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { PlusIcon, CheckIcon } from "@heroicons/react/24/solid";
 /* eslint-disable react/prop-types */
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
@@ -12,12 +12,33 @@ const Card = ({ data }) => {
     context.setProductToShow(productDetail);
   };
 
-  const addItemsToCart = (event , itemData) => {
+  const addItemsToCart = (event, itemData) => {
     event.stopPropagation();
     context.openCheckout();
-    console.log(context.isCheckoutOpen);
     context.setCount(context.count + 1);
-    context.setCartItems([...context.cartItems , itemData]);
+    context.setCartItems([...context.cartItems, itemData]);
+  };
+
+  const renderIcon = (id) => {
+    const isInCard =
+      context.cartItems.filter((item) => item.id === id).length > 0;
+
+    if (isInCard) {
+      return (
+        <button className="absolute top-0 right-0 flex justify-center items-center bg-black/50 text-white w-6 h-6 rounded-full m-2 pb-0.5 ">
+          <CheckIcon className="h-4 w-4 text-black-600" />
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 pb-0.5 "
+          onClick={(event) => addItemsToCart(event, data)}
+        >
+          <PlusIcon className="h-4 w-4 text-black-600" />
+        </button>
+      );
+    }
   };
 
   return (
@@ -34,12 +55,7 @@ const Card = ({ data }) => {
           src={data.images[0]}
           alt={data.title}
         />
-        <button
-          className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 pb-0.5 "
-          onClick={(event) => addItemsToCart(event , data)}
-        >
-          <PlusIcon className="h-4 w-4 text-black-600" />
-        </button>
+        {renderIcon(data.id)}
       </figure>
       <p className="flex justify-between">
         <span className="text-sm font-light">{data.title}</span>
