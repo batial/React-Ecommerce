@@ -57,7 +57,7 @@ const CheckoutSideMenu = () => {
             ${totalPrice(context.cartItems)}
           </span>
         </p>
-        <Link to="/my-orders/last">
+        <Link to="/my-order/last">
           <button
             className="bg-black text-white w-full rounded-lg p-2"
             onClick={() => handleCheckout()}
