@@ -1,32 +1,38 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import Layout from "../../Components/Layout";
 import Card from "../../Components/Cards";
-import { apiUrl } from "../../api";
 import ProductDetail from "../../Components/ProductDetail";
+import { ShoppingCartContext } from "../../Context";
 
 function Home() {
-  const [items, setItem] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/products`);
-        const data = await response.json();
-        setItem(data);
-      } catch (error) {
-        console.error(`Algo salió mal: ${error}`);
-      }
-    };
+  const context = useContext(ShoppingCartContext);
 
-    fetchData();
-  }, []);
+  const renderView = () => {
+    if (context.searchByTitle?.length > 0) {
+      if (context.filteredItems?.length > 0) {
+        return context.filteredItems?.map((item) => (
+          <Card data={item} key={item.id} />
+        ));
+      } else {
+        console.log("no hay objetos...");
+        return <div> Not results found. </div>;
+      }
+    } else {
+      return context.items?.map((item) => <Card data={item} key={item.id} />);
+    }
+  };
 
   return (
     <Layout>
-      Home
+      <h1 className="font-medium text-xl">Home</h1>
+      <input
+        type="text"
+        placeholder="Search a product"
+        className="rounded-lg border border-black w-80 p-2 mb-4 focus:outline-none"
+        onChange={(e) => context.setSearchByTitle(e.target.value)}
+      />
       <div className="grid gap-3 grid-cols-4 w-full max-w-screen-lg ">
-        {items?.map((item) => (
-          <Card data={item} key={item.id} />
-        ))}
+        {renderView()}
       </div>
       <ProductDetail />
     </Layout>
