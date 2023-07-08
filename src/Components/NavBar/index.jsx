@@ -16,7 +16,7 @@ function NavBar() {
         <li>
           <NavLink
             to="/"
-            onClick={()=> context.setSearchByCategory()}
+            onClick={() => context.setSearchByCategory()}
             className={({ isActive }) => (isActive ? activateStyle : undefined)}
           >
             All
@@ -25,7 +25,7 @@ function NavBar() {
         <li>
           <NavLink
             to="/clothes"
-            onClick={()=> context.setSearchByCategory('clothes')}
+            onClick={() => context.setSearchByCategory("clothes")}
             className={({ isActive }) => (isActive ? activateStyle : undefined)}
           >
             clothes
@@ -34,7 +34,7 @@ function NavBar() {
         <li>
           <NavLink
             to="/electronics"
-            onClick={()=> context.setSearchByCategory('electronics')}
+            onClick={() => context.setSearchByCategory("electronics")}
             className={({ isActive }) => (isActive ? activateStyle : undefined)}
           >
             electronics
@@ -43,7 +43,7 @@ function NavBar() {
         <li>
           <NavLink
             to="/furnitures"
-            onClick={()=> context.setSearchByCategory('fornitures')}
+            onClick={() => context.setSearchByCategory("fornitures")}
             className={({ isActive }) => (isActive ? activateStyle : undefined)}
           >
             Furnitures
@@ -52,7 +52,7 @@ function NavBar() {
         <li>
           <NavLink
             to="/toys"
-            onClick={()=> context.setSearchByCategory('toys')}
+            onClick={() => context.setSearchByCategory("toys")}
             className={({ isActive }) => (isActive ? activateStyle : undefined)}
           >
             Toys
@@ -61,7 +61,7 @@ function NavBar() {
         <li>
           <NavLink
             to="/others"
-            onClick={()=> context.setSearchByCategory('others')}
+            onClick={() => context.setSearchByCategory("others")}
             className={({ isActive }) => (isActive ? activateStyle : undefined)}
           >
             Others
@@ -76,14 +76,6 @@ function NavBar() {
             className={({ isActive }) => (isActive ? activateStyle : undefined)}
           >
             My account
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/my-order"
-            className={({ isActive }) => (isActive ? activateStyle : undefined)}
-          >
-            My order
           </NavLink>
         </li>
         <li>
@@ -104,7 +96,7 @@ function NavBar() {
         </li>
         <li className="flex justify-center items-center">
           <ShoppingBagIcon className="h-6 w-6 text-black-600" />
-          <span>{context.count}</span>
+          <span>{context.cartItems.length}</span>
         </li>
       </ul>
     </nav>
