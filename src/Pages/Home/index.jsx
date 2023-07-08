@@ -8,17 +8,12 @@ function Home() {
   const context = useContext(ShoppingCartContext);
 
   const renderView = () => {
-    if (context.searchByTitle?.length > 0) {
-      if (context.filteredItems?.length > 0) {
-        return context.filteredItems?.map((item) => (
-          <Card data={item} key={item.id} />
-        ));
-      } else {
-        console.log("no hay objetos...");
-        return <div> Not results found. </div>;
-      }
+    if (context.filteredItems?.length > 0) {
+      return context.filteredItems?.map((item) => (
+        <Card data={item} key={item.id} />
+      ));
     } else {
-      return context.items?.map((item) => <Card data={item} key={item.id} />);
+      return <div> Not results found. </div>;
     }
   };
 
