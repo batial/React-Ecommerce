@@ -118,6 +118,11 @@ export const ShoppingCartProvider = ({ children }) => {
     }
   }, [items, searchByTitle, searchByCategory]);
 
+  //user Logged detector
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -143,6 +148,10 @@ export const ShoppingCartProvider = ({ children }) => {
         setFilteredItems,
         searchByCategory,
         setSearchByCategory,
+        isLoggedIn,
+        setIsLoggedIn,
+        userData,
+        setUserData,
       }}
     >
       {children}
