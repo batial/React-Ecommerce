@@ -1,9 +1,11 @@
 import Layout from "../../Components/Layout";
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const context = useContext(ShoppingCartContext);
+  const navigate = useNavigate();
 
   return (
     <Layout>
@@ -15,8 +17,10 @@ function SignIn() {
             email: event.target.email.value,
             pass: event.target.pass.value,
           };
+          localStorage.setItem("user", JSON.stringify(Data));
           context.setIsLoggedIn(true);
           context.setUserData(Data);
+          navigate("/");
         }}
       >
         <h3 className="text-lg">Please enter your information</h3>
@@ -25,15 +29,17 @@ function SignIn() {
           name="email"
           placeholder="Your Email"
           className="w-full rounded py-3 px-[14px] text-body-color text-base border border-[f0f0f0]focus:border-primary"
+          required
         />
         <input
           type="password"
           name="pass"
           placeholder="You Password"
           className="w-full rounded py-3 px-[14px] text-body-color text-base border border-[f0f0f0] focus:border-primary"
+          required
         />
         <input
-          className="py-3 px-[14px] cursor-pointer border border-black rounded-l border-[f0f0f0] bg-black text-white"
+          className="py-3 w-full cursor-pointer border border-black rounded-sm bg-black text-white"
           type="submit"
         />
       </form>

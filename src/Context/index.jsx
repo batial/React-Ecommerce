@@ -121,7 +121,7 @@ export const ShoppingCartProvider = ({ children }) => {
   //user Logged detector
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
-
+  
 
   return (
     <ShoppingCartContext.Provider

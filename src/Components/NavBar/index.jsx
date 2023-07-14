@@ -1,25 +1,20 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 import { NavLink } from "react-router-dom";
 import { ShoppingCartContext } from "../../Context";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 function NavBar() {
   const activateStyle = "underline underline-offset-4";
   const context = useContext(ShoppingCartContext);
 
-  useEffect(()=>{
-    if (context.userData){
-      console.log('userData modificada')
-      console.log(context.userData)
-    }
-  },[context.isLoggedIn, context.userData])
+  //activate / desactivate user Nav
+  const [navUserFunctions, setNavUserFunctions] = useState(null);
 
-  //activate user account panel
-  function userFunctions(isLoggedIn) {
-    if (isLoggedIn) {
-      return (
+  useEffect(() => {
+    if (context.isLoggedIn) {
+      setNavUserFunctions(
         <ul className="flex items-center gap-3">
-          <li className="text-black/60">batial@github.com</li>
+          <li className="text-black/60">{context.userData?.email}</li>
           <li>
             <NavLink
               to="/my-account"
@@ -43,6 +38,10 @@ function NavBar() {
           <li>
             <NavLink
               to="/sign-in"
+              onClick={() => {
+                context.setUserData(null);
+                context.setIsLoggedIn(false);
+              }}
               className={({ isActive }) =>
                 isActive ? activateStyle : undefined
               }
@@ -57,7 +56,7 @@ function NavBar() {
         </ul>
       );
     } else {
-      return (
+      setNavUserFunctions(
         <ul>
           <li>
             <NavLink
@@ -72,7 +71,7 @@ function NavBar() {
         </ul>
       );
     }
-  }
+  }, [context, context.cartItems.length, context.isLoggedIn, context.userData]);
 
   return (
     <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light bg-white">
@@ -95,7 +94,7 @@ function NavBar() {
             onClick={() => context.setSearchByCategory("clothes")}
             className={({ isActive }) => (isActive ? activateStyle : undefined)}
           >
-            clothes
+            Clothes
           </NavLink>
         </li>
         <li>
@@ -104,25 +103,25 @@ function NavBar() {
             onClick={() => context.setSearchByCategory("electronics")}
             className={({ isActive }) => (isActive ? activateStyle : undefined)}
           >
-            electronics
+            Electronics
           </NavLink>
         </li>
         <li>
           <NavLink
-            to="/furnitures"
-            onClick={() => context.setSearchByCategory("fornitures")}
+            to="/furniture"
+            onClick={() => context.setSearchByCategory("furniture")}
             className={({ isActive }) => (isActive ? activateStyle : undefined)}
           >
-            Furnitures
+            Furniture
           </NavLink>
         </li>
         <li>
           <NavLink
-            to="/toys"
-            onClick={() => context.setSearchByCategory("toys")}
+            to="/shoes"
+            onClick={() => context.setSearchByCategory("shoes")}
             className={({ isActive }) => (isActive ? activateStyle : undefined)}
           >
-            Toys
+            Shoes
           </NavLink>
         </li>
         <li>
@@ -135,7 +134,7 @@ function NavBar() {
           </NavLink>
         </li>
       </ul>
-      {userFunctions()}
+      {navUserFunctions}
     </nav>
   );
 }
