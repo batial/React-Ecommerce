@@ -121,7 +121,15 @@ export const ShoppingCartProvider = ({ children }) => {
   //user Logged detector
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
-  
+
+  //my orders - get old orders
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (userData.orders) {
+        setOrder(userData.orders);
+      }
+    }
+  }, [isLoggedIn, userData]);
 
   return (
     <ShoppingCartContext.Provider

@@ -39,7 +39,6 @@ function NavBar() {
             <NavLink
               to="/sign-in"
               onClick={() => {
-                context.setUserData(null);
                 context.setIsLoggedIn(false);
               }}
               className={({ isActive }) =>

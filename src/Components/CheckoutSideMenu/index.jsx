@@ -13,13 +13,23 @@ const CheckoutSideMenu = () => {
     context.setCartItems(filteredItems);
   };
   const handleCheckout = () => {
+    function getCurrentDate() {
+      const currentDate = new Date();
+      const day = String(currentDate.getDate()).padStart(2, "0");
+      const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+      const year = String(currentDate.getFullYear()).slice(-2);
+      return `${day}/${month}/${year}`;
+    }
+
     const orderToAdd = {
-      date: "01.02.23",
+      date: getCurrentDate(),
       products: context.cartItems,
       totalProducts: context.cartItems.length,
       totalPrice: totalPrice(context.cartItems),
     };
     context.setOrder([...context.order, orderToAdd]);
+
+    //erase cart Data
     context.setCartItems([]);
     context.setSearchByTitle(null);
     context.closeCheckout();

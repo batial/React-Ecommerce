@@ -15,7 +15,6 @@ const Card = ({ data }) => {
   const addItemsToCart = (event, itemData) => {
     event.stopPropagation();
     context.openCheckout();
-    context.setCount(context.count + 1);
     context.setCartItems([...context.cartItems, itemData]);
   };
 
@@ -23,6 +22,12 @@ const Card = ({ data }) => {
     const isInCard =
       context.cartItems.filter((item) => item.id === id).length > 0;
 
+    //If the user doesn't log in, they can't add items.
+    if (!context.isLoggedIn) {
+      return;
+    }
+
+    // If the user already has an item, they can't go back to buy it.
     if (isInCard) {
       return (
         <button className="absolute top-0 right-0 flex justify-center items-center bg-black/50 text-white w-6 h-6 rounded-full m-2 pb-0.5 ">
@@ -33,7 +38,9 @@ const Card = ({ data }) => {
       return (
         <button
           className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 pb-0.5 "
-          onClick={(event) => addItemsToCart(event, data)}
+          onClick={(event) => {
+            addItemsToCart(event, data);
+          }}
         >
           <PlusIcon className="h-4 w-4 text-black-600" />
         </button>

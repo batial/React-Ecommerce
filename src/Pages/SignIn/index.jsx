@@ -13,13 +13,32 @@ function SignIn() {
         className="flex flex-col w-80 gap-4"
         onSubmit={(event) => {
           event.preventDefault();
-          const Data = {
-            email: event.target.email.value,
-            pass: event.target.pass.value,
-          };
-          localStorage.setItem("user", JSON.stringify(Data));
+          let data = undefined;
+
+          //get old users
+          if (localStorage.getItem("users")) {
+            data = JSON.parse(localStorage.getItem("users"));
+          } else {
+            data = [];
+          }
+
+          const registeredUser = data.find(
+            (user) => user.email == event.target.email.value
+          );
+          //add the new user
+          if (!registeredUser) {
+            const newUser = {
+              email: event.target.email.value,
+              pass: event.target.pass.value,
+            };
+            data = [...data, newUser];
+            localStorage.setItem("users", JSON.stringify(data));
+            context.setUserData(newUser);
+          } else {
+            context.setUserData(registeredUser);
+          }
+
           context.setIsLoggedIn(true);
-          context.setUserData(Data);
           navigate("/");
         }}
       >

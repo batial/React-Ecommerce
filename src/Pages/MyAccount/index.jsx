@@ -1,8 +1,11 @@
 /* import React from 'react' */
+import { useContext } from "react";
 import Layout from "../../Components/Layout";
+import { ShoppingCartContext } from "../../Context";
 
 function MyAcount() {
-  const userData = JSON.parse(localStorage.getItem("user"));
+  const context = useContext(ShoppingCartContext);
+  const userData = context.userData;
 
   return (
     <Layout>
@@ -10,12 +13,18 @@ function MyAcount() {
         className="flex flex-col w-80 gap-4"
         onSubmit={(event) => {
           event.preventDefault();
-          const updateUserData = {
-            name: event.target.name.value,
-            email: event.target.email.value,
-            pass: event.target.pass.value,
-          };
-          localStorage.setItem("user", JSON.stringify(updateUserData));
+          let updateUserData = context.userData;
+          updateUserData.name = event.target.name.value;
+          updateUserData.email = event.target.email.value;
+          updateUserData.pass = event.target.pass.value;
+          const users = JSON.parse(localStorage.getItem("users")) || [];
+          const userIndex = users.findIndex(
+            (user) => user.email === updateUserData.email
+          );
+          if (userIndex !== -1) {
+            users[userIndex] = updateUserData;
+          }
+          localStorage.setItem("users", JSON.stringify(users));
         }}
       >
         <h3 className="text-lg">My account</h3>
@@ -37,7 +46,7 @@ function MyAcount() {
             name="email"
             placeholder="Your Email"
             className="w-full rounded py-3 px-[14px] text-body-color text-base border border-[f0f0f0]focus:border-primary"
-            defaultValue={userData.email}
+            defaultValue={userData.email ?? "Empty Email"}
             readOnly
           />
         </label>

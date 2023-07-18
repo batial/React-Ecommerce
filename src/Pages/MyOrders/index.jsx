@@ -12,7 +12,7 @@ function MyOrders() {
       <div className="flex w-80 justify-center items-center relative mb-4">
         <h1 className="font-medium text-xl">My orders</h1>
       </div>
-      {context.order.map((order, index) => (
+      {context.order?.map((order, index) => (
         <Link key={index} to={`/my-orders/${index}`}>
           <OrdersCard
             totalPrice={order.totalPrice}
