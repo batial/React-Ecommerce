@@ -123,13 +123,26 @@ export const ShoppingCartProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
 
   //my orders - get old orders
+
   useEffect(() => {
-    if (isLoggedIn) {
-      if (userData.orders) {
-        setOrder(userData.orders);
-      }
+    if (isLoggedIn && userData.orders) {
+      setOrder(userData.orders);
     }
-  }, [isLoggedIn, userData]);
+  }, [isLoggedIn , userData]);
+
+  //my orders - set new orders
+  useEffect(() => {
+    if (order.length > 0 && userData) {
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const userIndex = users.findIndex(
+        (user) => user.email === userData.email
+      );
+      if (userIndex !== -1) {
+        users[userIndex].orders = order;
+      }
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+  }, [order, userData]);
 
   return (
     <ShoppingCartContext.Provider

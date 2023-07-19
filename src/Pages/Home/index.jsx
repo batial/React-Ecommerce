@@ -23,7 +23,7 @@ function Home() {
       <input
         type="text"
         placeholder="Search a product"
-        className="rounded-lg border border-black w-80 p-2 mb-4 focus:outline-none"
+        className="rounded py-3 px-[14px] text-body-color text-base border border-[f0f0f0]focus:border-primary w-80 p-2 mb-4 focus:outline-none"
         onChange={(e) => context.setSearchByTitle(e.target.value)}
       />
       <div className="grid gap-3 grid-cols-4 w-full max-w-screen-lg ">

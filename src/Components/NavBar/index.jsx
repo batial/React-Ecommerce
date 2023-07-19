@@ -40,6 +40,8 @@ function NavBar() {
               to="/sign-in"
               onClick={() => {
                 context.setIsLoggedIn(false);
+                context.setOrder([]);
+                context.setUserData(null);
               }}
               className={({ isActive }) =>
                 isActive ? activateStyle : undefined

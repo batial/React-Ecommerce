@@ -28,6 +28,7 @@ const CheckoutSideMenu = () => {
       totalPrice: totalPrice(context.cartItems),
     };
     context.setOrder([...context.order, orderToAdd]);
+    
 
     //erase cart Data
     context.setCartItems([]);
