@@ -125,7 +125,7 @@ export const ShoppingCartProvider = ({ children }) => {
   //my orders - get old orders
 
   useEffect(() => {
-    if (isLoggedIn && userData.orders) {
+    if (isLoggedIn && userData?.orders) {
       setOrder(userData.orders);
     }
   }, [isLoggedIn , userData]);

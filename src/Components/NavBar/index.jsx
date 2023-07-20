@@ -51,7 +51,7 @@ function NavBar() {
             </NavLink>
           </li>
           <li className="flex justify-center items-center">
-            <ShoppingBagIcon className="h-6 w-6 text-black-600" />
+            <ShoppingBagIcon onClick={()=>context.openCheckout()} className="h-6 w-6 text-black-600 cursor-pointer" />
             <span>{context.cartItems.length}</span>
           </li>
         </ul>
